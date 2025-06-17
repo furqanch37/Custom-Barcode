@@ -4,7 +4,7 @@ import ProductList from "./productlist/page";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
+    <div >
       <ProductList/>
        
     </div>

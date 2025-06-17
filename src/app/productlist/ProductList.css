@@ -1,0 +1,45 @@
+.product-wrapper {
+  max-width: 900px;
+  margin: 20px auto;
+  padding-left: 20px;
+}
+
+.product-heading {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.product-list {
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: #f9f9f9;
+  list-style-position: inside;
+}
+
+.product-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.product-price {
+  display: block;
+  font-weight: bold;
+  color: #333;
+  margin-top: 2px;
+}
+
+.download-btn {
+  margin-top: 20px;
+  padding: 10px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+.download-btn:hover {
+  background-color: #0056b3;
+}

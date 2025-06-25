@@ -6,12 +6,27 @@ import CanvasBarcode from './CustomBarcode';
 const ProductList = () => {
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    fetch('https://raasid.com/api/products?size=126')
-      .then((res) => res.json())
-      .then((data) => setProducts(data.products || []))
-      .catch((err) => console.error('Error fetching products:', err));
-  }, []);
+ useEffect(() => {
+  fetch('https://raasid.com/api/products?size=126')
+    .then((res) => res.json())
+    .then((data) => {
+      const fetchedProducts = data.products || [];
+
+      // Define your hardcoded product
+      const hardcodedProduct = {
+        _id: 'hardcoded-chicken-karahi',
+        name: 'Chicken Karahi',
+        price: 1200,
+        image: 'https://via.placeholder.com/150', // optional image URL
+        category: 'Karahi',
+        description: 'Delicious traditional Chicken Karahi',
+      };
+
+      // Set the combined product list
+      setProducts([hardcodedProduct, ...fetchedProducts]);
+    })
+    .catch((err) => console.error('Error fetching products:', err));
+}, []);
 
   return (
     <div className="product-wrapper">

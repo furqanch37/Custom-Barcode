@@ -7,7 +7,7 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
 
  useEffect(() => {
-  fetch('https://raasid.com/api/products?size=126')
+  fetch('https://raasid-back-end.vercel.app/api/products/all')
     .then((res) => res.json())
     .then((data) => {
       const fetchedProducts = data.products || [];

@@ -7,7 +7,7 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch('https://raasid-back-end.vercel.app/api/products/all')
+    fetch('https://raasid.com/api/products?size=126')
       .then((res) => res.json())
       .then((data) => setProducts(data.products || []))
       .catch((err) => console.error('Error fetching products:', err));

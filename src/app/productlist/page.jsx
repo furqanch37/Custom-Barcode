@@ -1,56 +1,50 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import './ProductList.css';
-import CanvasBarcode from './CustomBarcode';
+// app/products/page.jsx or components/ProductBarcodes.jsx
+"use client";
+import React, { useEffect, useState } from "react";
+import Barcode from "react-barcode";
 
-const ProductList = () => {
+const ProductBarcodes = () => {
   const [products, setProducts] = useState([]);
 
- useEffect(() => {
-  fetch('https://raasid.com/api/products?size=126')
-    .then((res) => res.json())
-    .then((data) => {
-      const fetchedProducts = data.products || [];
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch("https://raasid-back-end.vercel.app/api/products/all");
+        const data = await res.json();
+        if (data.success) {
+          setProducts(data.products);
+        }
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      }
+    };
 
-      // Define your hardcoded product
-      const hardcodedProduct = {
-        _id: 'hardcoded-chicken-karahi',
-        name: 'Chicken Karahi',
-        price: 877,
-        image: 'https://via.placeholder.com/150', // optional image URL
-        category: 'Ready to Eat Meals',
-        description: 'Delicious traditional Chicken Karahi',
-      };
-
-      // Set the combined product list
-      setProducts([hardcodedProduct, ...fetchedProducts]);
-    })
-    .catch((err) => console.error('Error fetching products:', err));
-}, []);
-
+    fetchProducts();
+  }, []);
 
   return (
-    <div className="product-wrapper">
-      <h2 className="product-heading">Product List with Barcodes</h2>
-      <ol className="product-list">
-        {products.map((product, idx) => (
-          <li key={product.id || idx} className="product-item">
-            <div>
-              <strong>{product.name}</strong>
-              {product.price && (
-                <span className="product-price">Rs. {product.price}</span>
-              )}
-              <div style={{ width: '380px', marginTop: '8px' }}>
-                <CanvasBarcode
-                  value={`${product.name} - Rs. ${product.price}`} // 👈 Full details for scan
-                />
-              </div>
-            </div>
-          </li>
+    <div className="p-4">
+      <h1 className="text-xl font-bold mb-4">Product Barcodes</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {products.map((product) => (
+          <div
+            key={product._id}
+            className="border p-4 rounded shadow text-center"
+          >
+            <h2 className="font-semibold">{product.name}</h2>
+            <p className="mb-2">Price: Rs {product.price}</p>
+            <Barcode
+              value={`${product.name} - Rs ${product.price}`}
+              width={2}
+              height={80}
+              fontSize={14}
+              displayValue={false}
+            />
+          </div>
         ))}
-      </ol>
+      </div>
     </div>
   );
 };
 
-export default ProductList;
+export default ProductBarcodes;
